@@ -52,8 +52,8 @@ function _todo_task_done {
     load_tasks
     if [[ ${#todo_tasks} -gt 0 ]] then
       compadd $(echo ${TODO_TASKS} | tr ':' '\n')
+      todo_display
     fi
-    todo_display
   }
 
 compdef _todo_task_done todo_task_done
