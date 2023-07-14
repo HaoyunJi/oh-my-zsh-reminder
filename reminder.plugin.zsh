@@ -57,6 +57,7 @@ function _todo_task_done {
 
 compdef _todo_task_done todo_task_done
 alias task_done=todo_task_done
+alias todo_done=todo_task_done
 
 function todo_add_task {
     if [[ $# -gt 0 ]] then
