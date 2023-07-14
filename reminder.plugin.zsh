@@ -29,6 +29,36 @@ fi
 todo_colors=(red green yellow blue magenta cyan)
 autoload -U add-zsh-hook
 
+function todo_task_done {
+    pattern="$1"
+	  load_tasks
+    index=${(M)todo_tasks[(i)${pattern}*]}
+    todo_tasks[index]=()
+    todo_tasks_colors[index]=()
+    todo_save
+}
+
+function todo_display {
+    load_tasks
+    if [[ ${#todo_tasks} -gt 0 ]] then
+      printf "$fg_bold[default]Todo :$fg_no_bold[default]\n"
+      for (( i = 1; i <= ${#todo_tasks}; i++ )); do
+        printf "  - %s%s$fg[default]\n" "${todo_tasks_colors[i]}" "${todo_tasks[i]}"
+      done
+    fi
+}
+
+function _todo_task_done {
+    load_tasks
+    if [[ ${#todo_tasks} -gt 0 ]] then
+      compadd $(echo ${TODO_TASKS} | tr ':' '\n')
+    fi
+    todo_display
+  }
+
+compdef _todo_task_done todo_task_done
+alias task_done=todo_task_done
+
 function todo_add_task {
     if [[ $# -gt 0 ]] then
       # Source: http://stackoverflow.com/a/8997314/1298019
@@ -40,39 +70,11 @@ function todo_add_task {
       (( todo_color_index %= ${#todo_colors} ))
       (( todo_color_index += 1 ))
       todo_save
+      todo_display
     fi
 }
 
 alias todo=todo_add_task
-
-function todo_task_done {
-    pattern="$1"
-	  load_tasks
-    index=${(M)todo_tasks[(i)${pattern}*]}
-    todo_tasks[index]=()
-    todo_tasks_colors[index]=()
-    todo_save
-}
-
-function _todo_task_done {
-    load_tasks
-    if [[ ${#todo_tasks} -gt 0 ]] then
-      compadd $(echo ${TODO_TASKS} | tr ':' '\n')
-    fi
-  }
-
-compdef _todo_task_done todo_task_done
-alias task_done=todo_task_done
-
-function todo_display {
-    load_tasks
-    if [[ ${#todo_tasks} -gt 0 ]] then
-      printf "$fg_bold[default]Todo :$fg_no_bold[default]\n"
-      for (( i = 1; i <= ${#todo_tasks}; i++ )); do
-        printf "  - %s%s$fg[default]\n" "${todo_tasks_colors[i]}" "${todo_tasks[i]}"
-      done
-    fi
-}
 
 function todo_save {
     echo "$TODO_TASKS" > $TODO_SAVE_TASKS_FILE
