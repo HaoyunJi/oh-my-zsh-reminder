@@ -28,7 +28,6 @@ fi
 
 todo_colors=(red green yellow blue magenta cyan)
 autoload -U add-zsh-hook
-add-zsh-hook precmd todo_display
 
 function todo_add_task {
     if [[ $# -gt 0 ]] then
