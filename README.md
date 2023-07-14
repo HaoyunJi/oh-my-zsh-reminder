@@ -39,7 +39,7 @@ That's all for the moment. As I said, very very simple. Maybe will be improved l
 
 To install, clone the repo into `~/.oh-my-zsh/custom/plugins` (ZSH plugins don't allow dashes, so make sure you clone it into a single-word folder):
 ``` bash
-git clone https://github.com/AlexisBRENON/oh-my-zsh-reminder ~/.oh-my-zsh/custom/plugins/reminder
+git clone https://github.com/HaoyunJi/oh-my-zsh-reminder.git ~/.oh-my-zsh/custom/plugins/reminder
 ```
 
 Then add it to your list of plugins in `~/.zshrc` (e.g `plugins=(reminder common-aliases extract git sudo taskwarrior)`).
