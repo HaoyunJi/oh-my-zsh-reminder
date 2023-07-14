@@ -82,3 +82,6 @@ function todo_save {
     todo_display
 }
 
+alias todon=todo_task_done
+alias todod=todo_display
+
