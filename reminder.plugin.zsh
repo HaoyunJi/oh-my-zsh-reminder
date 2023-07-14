@@ -36,7 +36,6 @@ function todo_task_done {
     todo_tasks[index]=()
     todo_tasks_colors[index]=()
     todo_save
-    todo_display
 }
 
 function todo_display {
@@ -70,7 +69,6 @@ function todo_add_task {
       (( todo_color_index %= ${#todo_colors} ))
       (( todo_color_index += 1 ))
       todo_save
-      todo_display
     fi
 }
 
@@ -80,5 +78,6 @@ function todo_save {
     echo "$TODO_TASKS" > $TODO_SAVE_TASKS_FILE
     echo "$TODO_TASKS_COLORS" > $TODO_SAVE_COLOR_FILE
     echo "$todo_color_index" >> $TODO_SAVE_COLOR_FILE
+    todo_display
 }
 
